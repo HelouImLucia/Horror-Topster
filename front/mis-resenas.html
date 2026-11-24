@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mis reseñas · Horror Topster</title>
+    <link rel="icon" href="img/fantasma.svg" type="image/svg+xml">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@125,800&family=Space+Grotesk:wght@400;500;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Young+Serif&display=swap">
+    <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+    <header class="cabezal">
+        <a class="cabezal-logo" href="index.html">
+            <img src="img/fantasma.svg" alt="" width="44" height="44">
+            <span class="cabezal-marca">Horror Topster</span>
+        </a>
+        <nav class="cabezal-nav">
+            <a class="cabezal-enlace" href="mis-resenas.html" aria-current="page">Mis reseñas</a>
+            <button class="cabezal-salir" id="btnCerrarSesion" type="button">Cerrar sesión</button>
+        </nav>
+    </header>
+
+    <main class="contenedor">
+        <section class="seccion mis-resenas">
+            <a class="volver" href="index.html">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>
+                <span class="visualmente-oculto">Volver al inicio</span>
+            </a>
+            <h1 class="titulo-seccion mis-resenas-titulo"><span class="serif">Mis</span> <span class="extendida">reseñas</span></h1>
+
+            <div class="resenas">
+                <div class="resenas-cabeza">
+                    <label class="buscador">
+                        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21"/></svg>
+                        <input id="buscarMisResenas" type="search" placeholder="Buscar título..." aria-label="Buscar entre tus reseñas por película" autocomplete="off">
+                    </label>
+
+                    <div class="filtro">
+                        <button class="filtro-boton" id="btnFiltro" type="button" aria-expanded="false" aria-controls="menuFiltro">
+                            Filtrar
+                            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+                        </button>
+                        <ul class="filtro-menu" id="menuFiltro">
+                            <li><button type="button" data-orden="todas" class="activo">Todas las reseñas</button></li>
+                            <li><button type="button" data-orden="recientes">Más recientes</button></li>
+                            <li><button type="button" data-orden="altas">Más altas</button></li>
+                            <li><button type="button" data-orden="bajas">Más bajas</button></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <p class="resenas-contador-total" id="totalResenas"></p>
+                <p class="resenas-estado" id="estadoResenas"></p>
+                <ul class="resenas-lista" id="listaResenas"></ul>
+            </div>
+        </section>
+    </main>
+
+    <footer class="pie">
+        <p class="pie-marca"><span class="serif">Horror</span> <span class="extendida">Topster</span></p>
+        <p class="pie-creditos">Programación II, Lucía Pérez y Lucía Pita</p>
+    </footer>
+
+    <p class="aviso" id="aviso" role="status" aria-live="polite"></p>
+
+    <div class="modal-fondo" id="modal">
+        <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitulo">
+            <div class="modal-cabeza">
+                <img class="modal-logo" src="img/fantasma.svg" alt="">
+                <button class="modal-cerrar" id="modalCerrar" type="button" aria-label="Cerrar">&times;</button>
+            </div>
+            <h2 class="modal-titulo" id="modalTitulo"></h2>
+            <p class="modal-texto" id="modalTexto"></p>
+            <div class="modal-botones">
+                <button class="boton-modal boton-modal-borde" id="modalCancelar" type="button">Cancelar</button>
+                <button class="boton-modal" id="modalAceptar" type="button">Aceptar</button>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="js/mis-resenas.js"></script>
+</body>
+</html>

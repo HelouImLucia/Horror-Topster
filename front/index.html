@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Horror Topster</title>
+    <link rel="icon" href="img/fantasma.svg" type="image/svg+xml">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@125,800&family=Space+Grotesk:wght@400;500;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Young+Serif&display=swap">
+    <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+    <header class="cabezal">
+        <a class="cabezal-logo" href="index.html">
+            <img src="img/fantasma.svg" alt="" width="44" height="44">
+            <span class="cabezal-marca">Horror Topster</span>
+        </a>
+        <nav class="cabezal-nav">
+            <a class="cabezal-enlace" href="mis-resenas.html">Mis reseñas</a>
+            <button class="cabezal-salir" id="btnCerrarSesion" type="button">Cerrar sesión</button>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero contenedor">
+            <div class="hero-texto">
+                <h1 class="titulo-marca">
+                    <span class="serif">Horror</span>
+                    <span class="extendida">Topster</span>
+                </h1>
+                <p class="hero-bajada">Armá tu Top 10 de películas de terror favoritas, compartí tu preferida e interactuá con la comunidad.</p>
+                <a class="boton-cuadrado" href="#archivo">Explorar películas</a>
+            </div>
+
+            <ol class="tickets" id="tickets" aria-label="Tus tres primeros puestos"></ol>
+
+            <div class="hero-popcorn" id="popcorn" aria-hidden="true"></div>
+        </section>
+
+        <section class="seccion contenedor" id="top10">
+            <h2 class="titulo-seccion"><span class="serif">Tu Top</span> <span class="extendida">10</span></h2>
+            <p class="bajada">Armá tu Top 10 de Películas de Terror favoritas y compartilo en redes. Arrastrá un póster y soltalo sobre el puesto que querés que ocupe: los movimientos son un borrador hasta que confirmes el nuevo orden.</p>
+
+            <div class="tablero">
+                <div class="tablero-barra">
+                    <label class="buscador">
+                        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21"/></svg>
+                        <input id="buscarTop" type="search" placeholder="Buscar título..." aria-label="Buscar una película para tu Top 10" autocomplete="off">
+                    </label>
+                </div>
+
+                <div class="tablero-resultados" id="resultadosTop" aria-live="polite"></div>
+
+                <div class="tablero-top">
+                    <h3 class="titulo-top"><span class="serif">Mi Top</span> <span class="extendida">10 Del Terror</span></h3>
+                    <ol class="grilla-top" id="grillaTop"></ol>
+                    <p class="tablero-contador" id="contadorTop"></p>
+                </div>
+            </div>
+
+            <div class="tablero-acciones">
+                <p class="estado-orden" id="estadoOrden" role="status" aria-live="polite"></p>
+                <button class="boton-confirmar" id="btnConfirmarOrden" type="button" style="display: none;">Confirmar nuevo orden</button>
+                <button class="boton-exportar" id="btnExportar" type="button">Exportar PNG del Terror</button>
+            </div>
+        </section>
+
+        <section class="seccion contenedor" id="archivo">
+            <h2 class="titulo-seccion"><span class="serif">Archivo del</span> <span class="extendida">Terror</span></h2>
+            <p class="bajada">¿Problemas para empezar tu Horror Topster? Mirá nuestro archivo y luego buscalo en el Topster.</p>
+
+            <div class="archivo">
+                <div class="archivo-barra">
+                    <label class="buscador buscador-ancho">
+                        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21"/></svg>
+                        <input id="buscarArchivo" type="search" placeholder="Buscar título..." aria-label="Buscar en el archivo" autocomplete="off">
+                    </label>
+                </div>
+
+                <div class="archivo-contenido" id="grillaArchivo"></div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="pie">
+        <p class="pie-marca"><span class="serif">Horror</span> <span class="extendida">Topster</span></p>
+        <p class="pie-creditos">Programación II, Lucía Pérez y Lucía Pita</p>
+    </footer>
+
+    <p class="aviso" id="aviso" role="status" aria-live="polite"></p>
+
+    <div class="modal-fondo" id="modal">
+        <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitulo">
+            <div class="modal-cabeza">
+                <img class="modal-logo" src="img/fantasma.svg" alt="">
+                <button class="modal-cerrar" id="modalCerrar" type="button" aria-label="Cerrar">&times;</button>
+            </div>
+            <h2 class="modal-titulo" id="modalTitulo"></h2>
+            <p class="modal-texto" id="modalTexto"></p>
+            <div class="modal-botones">
+                <button class="boton-modal boton-modal-borde" id="modalCancelar" type="button">Cancelar</button>
+                <button class="boton-modal" id="modalAceptar" type="button">Aceptar</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js" defer></script>
+    <script type="module" src="js/inicio.js"></script>
+</body>
+</html>

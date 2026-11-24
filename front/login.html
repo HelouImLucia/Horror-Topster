@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicia sesión · Horror Topster</title>
+    <link rel="icon" href="img/fantasma.svg" type="image/svg+xml">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@125,800&family=Space+Grotesk:wght@400;500;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Young+Serif&display=swap">
+    <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+    <main class="acceso">
+        <section class="acceso-panel">
+            <form class="acceso-form" id="formLogin" novalidate>
+                <h1 class="acceso-titulo">Inicia sesión</h1>
+                <p class="acceso-bajada">Tus películas favoritas en formato Topster te están esperando.</p>
+
+                <div class="campo">
+                    <label class="campo-etiqueta" for="email">Correo electrónico</label>
+                    <input class="campo-input" id="email" type="email" placeholder="tu@correo.com" autocomplete="email">
+                </div>
+
+                <div class="campo">
+                    <label class="campo-etiqueta" for="password">Contraseña</label>
+                    <div class="campo-contrasena">
+                        <input class="campo-input" id="password" type="password" placeholder="Introduce tu contraseña" autocomplete="current-password">
+                        <button class="boton-ojo" type="button" data-input="password" aria-label="Mostrar contraseña">
+                            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/><path class="ojo-tachado" d="M4 4l16 16"/></svg>
+                        </button>
+                    </div>
+                </div>
+
+                <label class="casilla">
+                    <input id="recordar" type="checkbox" checked>
+                    <span>Recordar sesión</span>
+                </label>
+
+                <button class="boton-acceso" id="btnEntrar" type="submit">
+                    <span id="textoEntrar">Entrar</span>
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                </button>
+                <p class="acceso-mensaje" id="mensaje" role="alert"></p>
+
+                <hr class="acceso-separador">
+                <a class="acceso-enlace" href="registro.html">Crea tu cuenta</a>
+            </form>
+        </section>
+
+        <div class="acceso-imagen" aria-hidden="true"></div>
+    </main>
+
+    <script type="module" src="js/login.js"></script>
+</body>
+</html>

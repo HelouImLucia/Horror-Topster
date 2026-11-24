@@ -1,0 +1,2200 @@
+/* =====================================================================
+   HORROR TOPSTER · estilos.css
+
+    1. Variables (colores y tipografías: se cambian acá y en ningún otro lado)
+    2. Base
+    3. Utilidades
+    4. Botones
+    5. Acceso: login y registro
+    6. Cabezal y pie
+    7. Hero y tickets
+    8. Títulos de sección
+    9. Buscador
+   10. Tablero: Tu Top 10
+   11. Póster
+   12. Archivo del Terror
+   13. Estados vacíos y aviso
+   14. Modal
+   15. Ficha de película
+   16. Reseñas
+   17. Responsive
+   18. Movimiento reducido
+   ===================================================================== */
+
+
+/* ---------- 1. Variables ---------- */
+:root {
+    --fondo: #1b242e;
+    --fondo-barra: #2c3e4f;
+    --fondo-tarjeta: #201b29;
+    --fondo-campo: #10171e;
+    --claro: #f2f3fa;
+
+    --rosa: #f09a9b;
+    --rosa-fuerte: #c4465f;
+    --rosa-palido: #f0b8bd;
+    --rosa-enlace: #e56f86;
+
+    --texto: #eef1f5;
+    --texto-suave: #a3b4c4;
+    --linea: rgba(238, 241, 245, 0.22);
+
+    --fuente-serif: "Young Serif", Georgia, serif;
+    --fuente-extendida: "Archivo", "Arial Black", sans-serif;
+    --fuente-texto: "Space Grotesk", system-ui, sans-serif;
+    --fuente-mono: "Space Mono", ui-monospace, monospace;
+}
+
+
+/* ---------- 2. Base ---------- */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+/* el body ocupa como mínimo toda la pantalla y el main se estira:
+   así el footer queda siempre abajo, aunque haya poco contenido */
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+    background: var(--fondo);
+    color: var(--texto);
+    font-family: var(--fuente-texto);
+    font-size: 16px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+}
+
+main {
+    flex: 1;
+    overflow-x: clip; /* los tickets girados no generan scroll horizontal */
+}
+
+img {
+    display: block;
+    max-width: 100%;
+}
+
+a {
+    color: inherit;
+}
+
+button,
+input,
+textarea,
+select {
+    font: inherit;
+    color: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+button:disabled {
+    cursor: wait;
+    opacity: 0.7;
+}
+
+:focus-visible {
+    outline: 2px solid var(--rosa);
+    outline-offset: 3px;
+}
+
+/* para que el cabezal fijo no tape el título al ir a #archivo o #top10 */
+section[id] {
+    scroll-margin-top: 90px;
+}
+
+
+/* ---------- 3. Utilidades ---------- */
+.contenedor {
+    width: min(1200px, 100% - 2rem);
+    margin-inline: auto;
+}
+
+.serif {
+    font-family: var(--fuente-serif);
+    font-weight: 400;
+}
+
+.extendida {
+    font-family: var(--fuente-extendida);
+    font-weight: 800;
+    font-stretch: 125%;
+    letter-spacing: -0.01em;
+}
+
+/* oculto a la vista pero lo leen los lectores de pantalla */
+.visualmente-oculto {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+}
+
+
+/* ---------- 4. Botones ---------- */
+
+/* "Explorar películas" */
+.boton-cuadrado {
+    display: inline-block;
+    padding: 0.8rem 4rem;
+    background: var(--rosa);
+    border: 1px solid var(--rosa-fuerte);
+    color: #fff;
+    font-size: 1.1rem;
+    text-decoration: none;
+    transition: background 0.2s;
+}
+
+.boton-cuadrado:hover {
+    background: var(--rosa-fuerte);
+}
+
+/* "Publicar reseña", "Cancelar" */
+.boton-pill {
+    padding: 0.7rem 1.4rem;
+    background: var(--rosa-fuerte);
+    border: 1.5px solid var(--rosa-fuerte);
+    border-radius: 999px;
+    color: #fff;
+    font-weight: 700;
+    transition: background 0.2s, color 0.2s;
+}
+
+.boton-pill:hover {
+    background: #d5576f;
+}
+
+.boton-pill-borde {
+    background: transparent;
+    color: var(--rosa);
+}
+
+.boton-pill-borde:hover {
+    background: rgba(240, 154, 155, 0.12);
+}
+
+
+/* ---------- 5. Acceso: login y registro ---------- */
+.acceso {
+    display: grid;
+    /* 3fr 2fr = el formulario ocupa 3 partes (60%) y la foto 2 (40%) */
+    grid-template-columns: 3fr 2fr;
+    min-height: 100vh;
+}
+
+.acceso-panel {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem 1.5rem;
+}
+
+.acceso-form {
+    width: 100%;
+    max-width: 440px;
+}
+
+.acceso-titulo {
+    margin: 0 0 0.6rem;
+    font-family: var(--fuente-extendida);
+    font-weight: 800;
+    font-stretch: 125%;
+    font-size: 2rem;
+    line-height: 1.1;
+    color: #fff;
+}
+
+.acceso-bajada {
+    margin: 0 0 2rem;
+    color: var(--texto-suave);
+}
+
+.campo {
+    margin-bottom: 1.25rem;
+}
+
+.campo-etiqueta {
+    display: block;
+    margin-bottom: 0.4rem;
+    font-size: 0.9rem;
+    color: #b9c9d8;
+}
+
+.campo-input {
+    width: 100%;
+    padding: 0.85rem 1rem;
+    background: #fff;
+    border: 2px solid transparent;
+    border-radius: 0;
+    color: var(--fondo);
+}
+
+.campo-input::placeholder {
+    color: #7d8792;
+}
+
+.campo-input:focus {
+    outline: none;
+    border-color: var(--rosa-fuerte);
+}
+
+.campo-contrasena {
+    position: relative;
+}
+
+.campo-contrasena .campo-input {
+    padding-right: 3.25rem;
+}
+
+.boton-ojo {
+    position: absolute;
+    top: 50%;
+    right: 0.6rem;
+    display: flex;
+    padding: 0.35rem;
+    background: none;
+    border: 0;
+    color: var(--fondo);
+    transform: translateY(-50%);
+}
+
+.boton-ojo.activo {
+    color: var(--rosa-fuerte);
+}
+
+/* con la contraseña visible, el ojo pierde la raya */
+.boton-ojo.activo .ojo-tachado {
+    display: none;
+}
+
+/* aviso de la contraseña: caja con borde a la izquierda e icono "i" */
+.campo-ayuda {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0.5rem 0 0;
+    padding: 0.5rem 0.75rem;
+    background: rgba(255, 255, 255, 0.08);
+    border-left: 3px solid #fff;
+    font-size: 0.8rem;
+    line-height: 1.4;
+    color: #fff;
+}
+
+.campo-ayuda::before {
+    content: "i";
+    flex-shrink: 0;
+    display: grid;
+    place-items: center;
+    width: 1.1rem;
+    height: 1.1rem;
+    border: 1.5px solid #fff;
+    border-radius: 50%;
+    font-family: var(--fuente-serif);
+    font-size: 0.7rem;
+    font-weight: 700;
+}
+
+.email-mensaje {
+    margin: 0.4rem 0 0;
+    font-size: 0.8rem;
+    color: var(--rosa);
+}
+
+.email-mensaje:empty {
+    display: none;
+}
+
+.casilla {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin: 0.25rem 0 1.5rem;
+    font-size: 0.9rem;
+    color: #c9d3dd;
+    cursor: pointer;
+}
+
+.casilla input {
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+    margin: 0;
+    accent-color: var(--rosa-fuerte);
+}
+
+.casilla em {
+    font-style: normal;
+    color: var(--rosa-enlace);
+    text-decoration: underline;
+}
+
+.boton-acceso {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 1rem 1.25rem;
+    background: var(--rosa-fuerte);
+    border: 0;
+    color: #fff;
+    font-size: 1.05rem;
+    font-weight: 500;
+    transition: background 0.2s;
+}
+
+.boton-acceso:hover {
+    background: #d5576f;
+}
+
+.boton-acceso svg {
+    transition: transform 0.2s;
+}
+
+.boton-acceso:hover svg {
+    transform: translateX(4px);
+}
+
+.acceso-mensaje {
+    min-height: 1.5em;
+    margin: 0.75rem 0 0;
+    font-size: 0.9rem;
+    color: var(--rosa);
+}
+
+.acceso-separador {
+    margin: 1.5rem 0 1.25rem;
+    border: 0;
+    border-top: 1px solid var(--linea);
+}
+
+.acceso-enlace {
+    display: block;
+    width: fit-content;
+    margin: 0.5rem auto 0;
+    color: var(--rosa-enlace);
+    font-size: 0.95rem;
+}
+
+/* La columna de la foto. activarFotosAcceso() (comunes.js) le pone la foto
+   y el background-position. cover = la foto tapa TODA la columna. */
+.acceso-imagen {
+    background-color: #12171d;   /* se ve mientras carga la foto */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+
+/* ---------- 6. Cabezal y pie ---------- */
+.cabezal {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.9rem clamp(1rem, 4vw, 2.5rem);
+    background: var(--claro);
+}
+
+/* logo + "Horror Topster" */
+.cabezal-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    text-decoration: none;
+}
+
+.cabezal-marca {
+    font-family: var(--fuente-serif);
+    font-size: 1.6rem;
+    color: var(--rosa-fuerte);
+}
+
+.cabezal-logo img {
+    width: 44px;
+    height: 44px;
+    transition: transform 0.25s;
+}
+
+.cabezal-logo:hover img {
+    transform: rotate(-8deg) scale(1.08);
+}
+
+.cabezal-salir {
+    padding: 0.4rem 0;
+    background: none;
+    border: 0;
+    font-family: var(--fuente-serif);
+    font-size: 0.95rem;
+    color: var(--rosa);
+}
+
+.cabezal-salir:hover {
+    text-decoration: underline;
+}
+
+/* "Mis reseñas" + "Cerrar sesión" */
+.cabezal-nav {
+    display: flex;
+    align-items: center;
+    gap: clamp(1rem, 3vw, 1.75rem);
+}
+
+.cabezal-enlace {
+    padding: 0.4rem 0;
+    font-family: var(--fuente-serif);
+    font-size: 0.95rem;
+    color: var(--rosa-fuerte);
+    text-decoration: none;
+}
+
+.cabezal-enlace:hover {
+    text-decoration: underline;
+}
+
+.pie {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 4rem;
+    padding: 1.75rem clamp(1rem, 4vw, 2.5rem);
+    background: var(--claro);
+}
+
+.pie-marca {
+    margin: 0;
+    font-size: 1.4rem;
+    line-height: 1;
+}
+
+.pie-marca .serif {
+    color: var(--rosa);
+}
+
+.pie-marca .extendida {
+    color: var(--rosa-fuerte);
+}
+
+.pie-creditos {
+    margin: 0;
+    font-size: 0.8rem;
+    color: #8a8fa3;
+}
+
+
+/* ---------- 7. Hero y tickets ---------- */
+.hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 3rem;
+    padding: 6rem 0 5rem;
+}
+
+.titulo-marca {
+    margin: 0 0 1.75rem;
+    line-height: 0.88;
+}
+
+.titulo-marca .serif {
+    display: block;
+    color: var(--rosa);
+    font-size: clamp(3.5rem, 8.5vw, 7.25rem);
+}
+
+.titulo-marca .extendida {
+    display: block;
+    color: var(--rosa-fuerte);
+    font-size: clamp(3.25rem, 8.5vw, 7.5rem);
+    letter-spacing: -0.03em;
+}
+
+.hero-bajada {
+    max-width: 520px;
+    margin: 0 0 2.5rem;
+    font-size: 0.95rem;
+}
+
+.tickets {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.ticket {
+    position: relative;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    min-height: 140px;
+    background: var(--rosa);
+    border: 1.5px solid var(--rosa-fuerte);
+    color: #fff;
+    text-decoration: none;
+    transition: transform 0.35s;
+}
+
+/* cada ticket con su inclinación, como en el diseño */
+.tickets li:nth-child(1) .ticket {
+    transform: rotate(-7deg) translateX(-0.5rem);
+}
+
+.tickets li:nth-child(2) .ticket {
+    z-index: 1;
+}
+
+.tickets li:nth-child(3) .ticket {
+    transform: rotate(-8deg) translateX(0.75rem);
+}
+
+.tickets li .ticket:hover {
+    z-index: 2;
+    transform: rotate(0) scale(1.03);
+}
+
+.ticket-imagen {
+    width: 84px;
+    aspect-ratio: 2 / 3;
+    margin: 1rem 1.2rem;
+    overflow: hidden;
+    background: var(--rosa-fuerte);
+}
+
+.ticket-imagen .poster {
+    height: 100%;
+    aspect-ratio: auto;
+}
+
+/* Top vacío: no hay tickets y en su lugar aparece la animación del pochoclo */
+.hero-popcorn {
+    display: none;
+    justify-self: end;   /* pegada al borde derecho de su columna */
+    width: min(100%, 420px);
+    aspect-ratio: 1;   /* la animación es cuadrada (1080 x 1080) */
+}
+
+.hero-sin-tickets .hero-popcorn {
+    display: block;
+}
+
+/* mientras hay un popup abierto, la página de atrás queda quieta */
+body.sin-scroll {
+    overflow: hidden;
+}
+
+.hero-sin-tickets .tickets {
+    display: none;
+}
+
+.ticket-cuerpo {
+    min-width: 0;
+    padding-right: 1rem;
+}
+
+.ticket-titulo,
+.ticket-texto {
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.ticket-titulo {
+    font-size: clamp(1.4rem, 2.6vw, 2.1rem);
+    line-height: 1.25;
+}
+
+.ticket-texto {
+    font-size: 0.9rem;
+}
+
+.ticket-numero {
+    display: flex;
+    align-items: center;
+    align-self: stretch;
+    padding: 0 1.75rem;
+    border-left: 1.5px solid var(--rosa-fuerte);
+    font-size: 2.6rem;
+    font-weight: 400;
+}
+
+
+/* ---------- 8. Títulos de sección ---------- */
+.seccion {
+    padding: 4rem 0;
+}
+
+.titulo-seccion {
+    margin: 0 0 0.9rem;
+    font-size: clamp(2.75rem, 7vw, 5rem);
+    font-weight: 400;
+    line-height: 1;
+}
+
+.titulo-seccion .serif {
+    color: var(--rosa);
+}
+
+.titulo-seccion .extendida {
+    color: var(--rosa-fuerte);
+}
+
+.bajada {
+    margin: 0 0 3rem;
+    font-size: 0.9rem;
+}
+
+
+/* ---------- 9. Buscador ---------- */
+.buscador {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    width: 100%;
+    max-width: 300px;
+    padding: 0.5rem 0.8rem;
+    background: var(--claro);
+    border: 2px solid var(--rosa-fuerte);
+    color: var(--fondo);
+    transition: box-shadow 0.2s;
+}
+
+.buscador:focus-within {
+    box-shadow: 0 0 0 4px rgba(240, 154, 155, 0.35);
+}
+
+.buscador svg {
+    flex-shrink: 0;
+}
+
+.buscador input {
+    width: 100%;
+    background: transparent;
+    border: 0;
+    outline: none;
+    color: var(--fondo);
+    font-size: 0.95rem;
+}
+
+.buscador input::placeholder {
+    color: #4a5562;
+}
+
+.buscador-ancho {
+    max-width: 430px;
+}
+
+
+/* ---------- 10. Tablero: Tu Top 10 ---------- */
+.tablero {
+    display: grid;
+    grid-template-columns: minmax(250px, 28%) 1fr;
+    grid-template-rows: auto 1fr;
+    border: 1px solid rgba(255, 255, 255, 0.7);
+}
+
+.tablero-barra {
+    grid-column: 1 / -1; /* ocupa las dos columnas */
+    padding: 1.6rem 1.25rem;
+    background: var(--fondo-barra);
+}
+
+.tablero-resultados {
+    /* contain: size hace que la lista larga no estire el tablero:
+       el alto lo marca el Top 10 y los resultados se scrollean */
+    contain: size;
+    overflow-y: auto;
+    padding: 1.5rem 1rem;
+    scrollbar-color: var(--rosa-fuerte) #d9d9d9;
+    scrollbar-width: thin;
+}
+
+.tablero-top {
+    position: relative;
+    padding: 2rem clamp(1rem, 3vw, 2.5rem) 2.5rem;
+    background: var(--claro);
+    color: var(--rosa-fuerte);
+    box-shadow: 0 0 28px rgba(196, 70, 95, 0.55);
+}
+
+.titulo-top {
+    margin: 0 0 2rem;
+    text-align: center;
+    font-size: clamp(1.6rem, 3.4vw, 2.6rem);
+    font-weight: 400;
+    line-height: 1.1;
+}
+
+.titulo-top .serif {
+    color: var(--rosa);
+}
+
+.grilla-top {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 3rem 1rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.puesto {
+    min-width: 0;
+}
+
+.puesto-numero {
+    display: block;
+    margin-bottom: 0.35rem;
+    font-family: var(--fuente-mono);
+    font-size: 1.15rem;
+    font-weight: 700;
+}
+
+.puesto-caja {
+    position: relative;
+    background: #fff;
+    border: 1.5px solid var(--rosa-fuerte);
+}
+
+/* 2 / 3: la misma proporción que un póster de cine */
+.puesto-imagen {
+    display: grid;
+    place-items: center;
+    aspect-ratio: 2 / 3;
+    background: var(--rosa-palido);
+}
+
+.puesto-enlace {
+    display: block;
+    text-decoration: none;
+}
+
+.puesto-pie {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 0.4rem;
+    padding: 0.3rem 0.4rem;
+    font-family: var(--fuente-mono);
+    font-size: 0.62rem;
+}
+
+.puesto-nombre {
+    min-width: 0;
+    overflow: hidden;
+    font-weight: 700;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.puesto-anio {
+    flex-shrink: 0;
+    opacity: 0.7;
+}
+
+.puesto-vacio .puesto-pie {
+    opacity: 0.6;
+}
+
+.puesto-sumar {
+    display: grid;
+    place-items: center;
+    width: 38px;
+    height: 38px;
+    padding: 0;
+    background: var(--rosa-fuerte);
+    border: 0;
+    border-radius: 50%;
+    color: #fff;
+    font-size: 1.7rem;
+    line-height: 1;
+    transition: transform 0.2s;
+}
+
+.puesto-sumar:hover {
+    transform: scale(1.12);
+}
+
+/* la × arriba a la derecha de cada póster: aparece al pasar el mouse */
+.puesto-quitar {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    z-index: 2;
+    display: grid;
+    place-items: center;
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    background: rgba(27, 36, 46, 0.85);
+    border: 0;
+    border-radius: 50%;
+    color: #fff;
+    font-size: 1.1rem;
+    line-height: 1;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.2s, background 0.2s, transform 0.2s;
+}
+
+.puesto-caja:hover .puesto-quitar,
+.puesto-quitar:focus-visible {
+    opacity: 1;
+}
+
+.puesto-quitar:hover {
+    transform: scale(1.1);
+    background: var(--rosa-fuerte);
+}
+
+/* ----- drag and drop ----- */
+.arrastrable {
+    cursor: grab;
+}
+
+.arrastrable:active {
+    cursor: grabbing;
+}
+
+/* mientras se arrastra, los hijos no "roban" los eventos (evita parpadeos) */
+.ordenando .puesto * {
+    pointer-events: none;
+}
+
+.arrastrando {
+    opacity: 0.4;
+}
+
+.destino .puesto-caja {
+    outline: 3px dashed var(--rosa-fuerte);
+    outline-offset: 4px;
+    transform: scale(1.03);
+    transition: transform 0.15s;
+}
+
+/* ----- exportar ----- */
+.tablero-acciones {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 2.5rem;
+}
+
+/* ----- borrador del orden: confirmar y estado ----- */
+.estado-orden {
+    margin: 0 auto 0 0;
+    font-family: var(--fuente-mono);
+    font-size: 0.75rem;
+    color: var(--texto-suave);
+}
+
+.estado-orden:empty {
+    display: none;
+}
+
+.boton-confirmar {
+    padding: 0.6rem 1.4rem;
+    background: transparent;
+    border: 1.5px solid var(--rosa);
+    border-radius: 999px;
+    color: var(--rosa);
+    font-size: 0.85rem;
+    font-weight: 700;
+    transition: background 0.2s, color 0.2s;
+}
+
+.boton-confirmar:hover {
+    background: var(--rosa);
+    color: var(--fondo);
+}
+
+.boton-confirmar[hidden] {
+    display: none;
+}
+
+.boton-exportar {
+    padding: 0.6rem 1.4rem;
+    background: var(--rosa-fuerte);
+    border: 0;
+    border-radius: 999px;
+    color: #fff;
+    font-size: 0.85rem;
+    font-weight: 700;
+    opacity: 0.55;           /* "apagado" hasta tener las 10 */
+    transition: opacity 0.2s, background 0.2s;
+}
+
+.boton-exportar.listo {
+    opacity: 1;
+}
+
+.boton-exportar.listo:hover {
+    background: #d5576f;
+}
+
+.tablero-contador {
+    min-height: 1.125rem; /* una línea: no salta cuando aparece el texto */
+    margin: 2.5rem 0 0;
+    text-align: right;
+    font-family: var(--fuente-mono);
+    font-size: 0.75rem;
+    color: var(--rosa-fuerte);
+}
+
+/* resultados de la búsqueda (columna oscura) */
+.resultados-grilla {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem 0.75rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.resultado {
+    min-width: 0;
+}
+
+.resultado-nombre {
+    margin: 0.45rem 0 0;
+    font-size: 0.72rem;
+    line-height: 1.25;
+}
+
+.resultado-anio {
+    margin: 0;
+    font-size: 0.7rem;
+    color: var(--rosa);
+}
+
+.boton-agregar {
+    width: 100%;
+    margin-top: 0.4rem;
+    padding: 0.2rem;
+    background: var(--rosa);
+    border: 1px solid var(--rosa-fuerte);
+    color: var(--fondo);
+    font-size: 0.72rem;
+    transition: background 0.2s;
+}
+
+.boton-agregar:hover {
+    background: var(--rosa-palido);
+}
+
+.boton-agregar.ya-agregada {
+    background: transparent;
+    border-color: var(--rosa);
+    color: var(--rosa);
+}
+
+
+/* ---------- 11. Póster ---------- */
+.poster {
+    position: relative;
+    aspect-ratio: 2 / 3;
+    overflow: hidden;
+    background: #0f1419;
+    /* así el texto de adentro se mide con el ancho del póster (unidad cqw) */
+    container-type: inline-size;
+}
+
+/* la imagen va encima del póster tipográfico.
+   object-fit: contain = entra ENTERA en el rectángulo, sin recortarse
+   (si no tiene justo la misma proporción, sobra un poco de fondo oscuro) */
+.poster img {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+/* con la imagen cargada, escondemos el texto y el fantasma de atrás */
+.poster.con-imagen {
+    background: #0f1419;
+}
+
+.poster.con-imagen .poster-anio,
+.poster.con-imagen .poster-nombre,
+.poster.con-imagen::before {
+    visibility: hidden;
+}
+
+.poster-tipografico {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    /* padding en % (no en cqw): en el propio contenedor, cqw se mediría contra la pantalla */
+    padding: 9% 8%;
+    color: #f4ece6;
+}
+
+/* el fantasma de fondo, apenas visible */
+.poster-tipografico::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: url("../img/fantasma.svg") center 38% / 46% no-repeat;
+    opacity: 0.16;
+}
+
+.poster-anio,
+.poster-nombre {
+    position: relative; /* quedan arriba del fantasma */
+}
+
+.poster-anio {
+    font-family: var(--fuente-mono);
+    font-size: 7cqw;
+    letter-spacing: 0.1em;
+    opacity: 0.75;
+}
+
+.poster-nombre {
+    font-family: var(--fuente-serif);
+    font-size: 11cqw;
+    line-height: 1.05;
+    text-align: center;
+    text-transform: uppercase;
+    overflow-wrap: break-word;
+}
+
+/* los cuatro tonos (crearPoster elige uno según el año) */
+.tono-0 {
+    background: linear-gradient(180deg, #0c1116 0%, #0c1116 35%, #3d1322 100%);
+}
+
+.tono-1 {
+    background: linear-gradient(180deg, #11161c 0%, #11161c 30%, #5b1a2c 100%);
+}
+
+.tono-2 {
+    background: linear-gradient(180deg, #0d1218 0%, #0d1218 35%, #1f3443 100%);
+}
+
+.tono-3 {
+    background: linear-gradient(180deg, #150f17 0%, #150f17 35%, #4a2a1c 100%);
+}
+
+
+/* ---------- 12. Archivo del Terror ---------- */
+.archivo {
+    border: 1px solid rgba(255, 255, 255, 0.7);
+}
+
+.archivo-barra {
+    display: flex;
+    justify-content: center;
+    padding: 1.25rem;
+    background: var(--fondo-barra);
+}
+
+.archivo-contenido {
+    max-height: 1150px;
+    overflow-y: auto;
+    scrollbar-color: var(--rosa-fuerte) #d9d9d9;
+    scrollbar-width: thin;
+}
+
+.archivo-grilla {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(135px, 1fr));
+    gap: 2.5rem 1.25rem;
+    margin: 0;
+    padding: 1.75rem;
+    list-style: none;
+}
+
+.tarjeta {
+    display: block;
+    text-decoration: none;
+}
+
+.tarjeta .poster {
+    transition: transform 0.25s, box-shadow 0.25s;
+}
+
+.tarjeta:hover .poster,
+.tarjeta:focus-visible .poster {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 26px rgba(196, 70, 95, 0.35);
+}
+
+.tarjeta-nombre {
+    margin: 0.55rem 0 0;
+    font-size: 0.85rem;
+    line-height: 1.3;
+}
+
+.tarjeta-anio {
+    margin: 0;
+    font-size: 0.8rem;
+    color: var(--rosa);
+}
+
+/* ----- skeleton loader (mientras carga lo que viene del back) ----- */
+.esqueleto {
+    position: relative;
+    display: block;
+    max-width: 100%;
+    overflow: hidden;              /* el brillo no se sale del rectángulo */
+    background: #1b242e;
+    border: 1px solid var(--linea); /* el fondo de la página es del mismo color: el borde lo hace visible */
+}
+
+/* mismo tamaño que .poster: todo el ancho de la columna y proporción 2:3 */
+.esqueleto-poster {
+    aspect-ratio: 2 / 3;
+}
+
+/* La barrita (en lugar del título) y las líneas de texto van ADENTRO del mismo
+   elemento que el texto real (un <p class="tarjeta-nombre">, un <h1>...).
+   Son inline-block: se apoyan en la línea como si fueran una palabra, así que
+   ocupan exactamente el alto de una línea de ese texto. Por eso, cuando llega
+   el texto de verdad, nada cambia de tamaño. Para varias líneas se separan con <br>. */
+.esqueleto-barra,
+.esqueleto-linea {
+    display: inline-block;
+    vertical-align: middle;
+    border-radius: 999px;
+}
+
+.esqueleto-barra {
+    width: 75%;
+    height: 0.75rem;
+}
+
+/* el alto depende del tamaño de letra de donde esté (em) */
+.esqueleto-linea {
+    height: 0.8em;
+}
+
+/* el avatar de una reseña: mismo tamaño que .avatar */
+.esqueleto-circulo {
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+/* la ficha mientras carga: sin el "/" suelto y con el botón como esqueleto */
+.ficha.cargando .ficha-datos > [aria-hidden="true"] {
+    visibility: hidden;
+}
+
+.ficha.cargando .boton-top {
+    position: relative;
+    overflow: hidden;
+    background: #1b242e;
+    outline: 1px solid var(--linea);
+    color: transparent;
+}
+
+.ficha.cargando .boton-top::before {
+    visibility: hidden;
+}
+
+/* el brillo: una franja clara que cruza de izquierda a derecha, en loop */
+.ficha.cargando .boton-top::after,
+.esqueleto::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transform: translateX(-100%);
+    animation: brillo-esqueleto 1.4s ease-in-out infinite;
+}
+
+@keyframes brillo-esqueleto {
+    to {
+        transform: translateX(100%);
+    }
+}
+
+
+/* ---------- 13. Estados vacíos y aviso ---------- */
+.vacio {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    min-height: 100%;
+    padding: 3rem 1rem;
+    text-align: center;
+    font-size: 0.85rem;
+}
+
+/* ancho Y alto: así el lugar queda reservado antes de que baje la imagen */
+.vacio img {
+    width: 72px;
+    height: 72px;
+}
+
+.vacio p {
+    max-width: 280px;
+    margin: 0;
+}
+
+.archivo-contenido .vacio {
+    min-height: 480px;
+}
+
+.aviso {
+    position: fixed;
+    bottom: 1.5rem;
+    left: 50%;
+    z-index: 60;
+    max-width: calc(100% - 2rem);
+    margin: 0;
+    padding: 0.8rem 1.3rem;
+    background: var(--rosa-fuerte);
+    border-radius: 999px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+    color: #fff;
+    font-size: 0.9rem;
+    opacity: 0;
+    pointer-events: none;
+    transform: translate(-50%, 150%);
+    transition: opacity 0.3s, transform 0.3s;
+}
+
+.aviso.visible {
+    opacity: 1;
+    transform: translate(-50%, 0);
+}
+
+
+/* ---------- 14. Modal ---------- */
+.modal-fondo {
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    background: rgba(8, 12, 16, 0.72);
+}
+
+.modal-fondo.abierto {
+    display: flex;
+}
+
+.modal {
+    width: min(440px, 100%);
+    padding: 1.5rem 1.75rem 1.75rem;
+    background: var(--fondo);
+    border-radius: 22px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    animation: aparecer 0.22s ease-out;
+}
+
+@keyframes aparecer {
+    from {
+        opacity: 0;
+        transform: translateY(14px) scale(0.98);
+    }
+}
+
+.modal-cabeza {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.25rem;
+}
+
+.modal-logo {
+    width: 30px;
+}
+
+.modal-cerrar {
+    padding: 0 0.25rem;
+    background: none;
+    border: 0;
+    color: #fff;
+    font-size: 2.2rem;
+    line-height: 1;
+}
+
+.modal-titulo {
+    margin: 0 0 0.6rem;
+    font-family: var(--fuente-serif);
+    font-size: 1.9rem;
+    font-weight: 400;
+    color: var(--rosa);
+}
+
+.modal-texto {
+    margin: 0 0 1.6rem;
+    font-size: 0.95rem;
+}
+
+.modal-botones {
+    display: flex;
+    gap: 0.75rem;
+}
+
+.boton-modal {
+    flex: 1;
+    padding: 0.75rem 1rem;
+    background: var(--rosa);
+    border: 1.5px solid var(--rosa-fuerte);
+    border-radius: 999px;
+    color: var(--fondo);
+    font-weight: 700;
+    transition: background 0.2s;
+}
+
+.boton-modal:hover {
+    background: var(--rosa-palido);
+}
+
+.boton-modal-borde {
+    background: transparent;
+    border-color: var(--rosa);
+    color: var(--rosa);
+}
+
+.boton-modal-borde:hover {
+    background: rgba(240, 154, 155, 0.12);
+}
+
+
+/* ---------- 15. Ficha de película ---------- */
+.ficha {
+    margin: 2rem 0 3.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+}
+
+.ficha-cabeza {
+    padding: 0.8rem 1.5rem 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.35);
+}
+
+.volver {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    text-decoration: none;
+}
+
+.volver svg {
+    color: var(--rosa);
+    transition: transform 0.2s;
+}
+
+.volver:hover svg {
+    transform: translateX(-4px);
+}
+
+.ficha-titulo {
+    margin: 0.35rem 0 0.5rem;
+    font-size: clamp(2.25rem, 6vw, 4rem);
+    line-height: 1.05;
+    color: var(--rosa-fuerte);
+}
+
+.ficha-credito {
+    margin: 0;
+    font-family: var(--fuente-mono);
+    font-size: 0.75rem;
+    font-style: italic;
+    color: var(--texto-suave);
+}
+
+.ficha-cuerpo {
+    display: grid;
+    grid-template-columns: minmax(220px, 340px) 1fr;
+    gap: 2.5rem;
+    padding: 1.5rem;
+}
+
+.ficha-poster .poster {
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
+}
+
+.ficha-datos {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem 1rem;
+    margin: 0 0 4rem;
+    font-family: var(--fuente-mono);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+}
+
+.etiqueta {
+    padding: 0.3rem 0.6rem;
+    border: 1px solid var(--rosa);
+    color: var(--rosa);
+    font-size: 0.7rem;
+    text-transform: none;
+}
+
+.etiqueta:empty {
+    display: none;
+}
+
+.ficha-frase {
+    margin: 0 0 0.75rem;
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    color: var(--rosa);
+}
+
+.ficha-descripcion {
+    margin: 0 0 2rem;
+    font-size: 1.05rem;
+    line-height: 1.7;
+}
+
+.ficha-creditos {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem 2rem;
+    margin: 0 0 2.5rem;
+    padding: 1.25rem 0;
+    border-top: 1px solid var(--linea);
+    border-bottom: 1px solid var(--linea);
+}
+
+.ficha-creditos dt {
+    margin-bottom: 0.4rem;
+    font-family: var(--fuente-mono);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    color: var(--texto-suave);
+}
+
+.ficha-creditos dd {
+    margin: 0;
+    font-size: 0.95rem;
+}
+
+/* "Añadir a Mi Top 10" / "Añadido a Mi Top 10" */
+.boton-top {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.6rem;
+    width: 100%;
+    padding: 0.95rem 1.5rem;
+    background: var(--rosa);
+    border: 0;
+    border-radius: 999px;
+    color: #fff;
+    font-size: 1.05rem;
+    font-weight: 700;
+    transition: background 0.2s;
+}
+
+.boton-top::before {
+    content: "+";
+    display: grid;
+    place-items: center;
+    width: 22px;
+    height: 22px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 50%;
+    color: var(--rosa);
+    font-size: 1rem;
+    line-height: 1;
+}
+
+.boton-top:hover {
+    background: #e88486;
+}
+
+.boton-top.agregada {
+    background: var(--rosa-fuerte);
+}
+
+.boton-top.agregada::before {
+    content: "✓";
+    background: none;
+    color: #fff;
+}
+
+.boton-top.agregada:hover {
+    background: #d5576f;
+}
+
+
+/* ---------- 16. Reseñas ---------- */
+.resenas {
+    padding-bottom: 2rem;
+}
+
+.resenas-cabeza {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.resenas-cabeza h2 {
+    margin: 0;
+    font-size: clamp(1.75rem, 3vw, 2.25rem);
+    color: var(--rosa);
+}
+
+.resenas-cabeza p {
+    margin: 0.25rem 0 0;
+    font-family: var(--fuente-mono);
+    font-size: 0.75rem;
+}
+
+.filtro {
+    position: relative;
+}
+
+.filtro-boton {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.55rem 1rem;
+    background: var(--fondo-tarjeta);
+    border: 1.5px solid var(--rosa-fuerte);
+    border-radius: 999px;
+    color: var(--rosa);
+    font-family: var(--fuente-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.filtro-menu {
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    right: 0;
+    z-index: 5;
+    display: none;
+    min-width: 215px;
+    margin: 0;
+    padding: 0.5rem;
+    list-style: none;
+    background: var(--fondo-tarjeta);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    box-shadow: 0 14px 30px rgba(0, 0, 0, 0.35);
+}
+
+.filtro-menu.abierto {
+    display: block;
+}
+
+.filtro-menu button {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0.6rem 0.75rem;
+    background: none;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    text-align: left;
+}
+
+.filtro-menu button:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.filtro-menu button.activo {
+    background: #131a21;
+    border-color: var(--rosa-fuerte);
+    font-weight: 700;
+}
+
+.filtro-menu button.activo::after {
+    content: "✓";
+    color: var(--rosa-fuerte);
+}
+
+.resena-form,
+.resena {
+    padding: 1.25rem;
+    background: var(--fondo-tarjeta);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 12px;
+}
+
+.resena-form {
+    margin-bottom: 1.5rem;
+}
+
+.resena-form-cabeza {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+}
+
+.resena-form-cabeza h3 {
+    margin: 0;
+    font-size: 1rem;
+}
+
+.resena-form textarea,
+.resena-edicion textarea {
+    width: 100%;
+    min-height: 120px;
+    padding: 1rem;
+    background: var(--fondo-campo);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 8px;
+    resize: vertical;
+}
+
+.resena-form textarea:focus,
+.resena-edicion textarea:focus {
+    outline: none;
+    border-color: var(--rosa);
+}
+
+.resena-form-pie {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem 1rem;
+    margin-top: 1rem;
+}
+
+.resena-contador {
+    margin-right: auto; /* empuja el resto a la derecha */
+    font-family: var(--fuente-mono);
+    font-size: 0.75rem;
+    color: var(--texto-suave);
+}
+
+.selector-puntaje {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--fuente-mono);
+    font-size: 0.75rem;
+    color: var(--texto-suave);
+}
+
+.selector-puntaje select {
+    padding: 0.45rem 0.7rem;
+    background: var(--fondo-campo);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 999px;
+    color: var(--rosa);
+    font-family: var(--fuente-mono);
+}
+
+.avatar {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    background: var(--rosa-fuerte);
+    border-radius: 50%;
+    color: #fff;
+    font-size: 0.85rem;
+    font-weight: 700;
+}
+
+.avatar-propio {
+    background: #f5b3b3;
+}
+
+.avatar-claro {
+    background: #f5b3b3;
+    color: #3a1b26;
+}
+
+.resenas-estado {
+    margin: 0 0 1rem;
+    color: var(--texto-suave);
+    font-size: 0.9rem;
+}
+
+.resenas-estado:empty {
+    display: none;
+}
+
+.resenas-lista {
+    display: grid;
+    gap: 1rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.resena-cabeza {
+    display: flex;
+    flex-wrap: wrap; /* en celular los botones bajan a otra línea */
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.resena-autor {
+    display: block;
+}
+
+.resena-fecha {
+    display: block;
+    font-family: var(--fuente-mono);
+    font-size: 0.72rem;
+    color: var(--texto-suave);
+}
+
+.resena-acciones {
+    display: flex;
+    gap: 0.5rem;
+    margin-left: auto;
+}
+
+.boton-mini {
+    padding: 0.35rem 0.8rem;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    border-radius: 999px;
+    color: var(--rosa);
+    font-family: var(--fuente-mono);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    white-space: nowrap;
+    transition: border-color 0.2s;
+}
+
+.boton-mini:hover {
+    border-color: var(--rosa);
+}
+
+.boton-mini-eliminar::before {
+    content: "× ";
+}
+
+.resena-puntaje {
+    margin: 0.75rem 0 0.35rem;
+    font-family: var(--fuente-mono);
+    font-size: 0.8rem;
+    color: var(--rosa);
+}
+
+.resena-texto {
+    margin: 0;
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+    white-space: pre-line; /* respeta los enters que escribió el usuario */
+}
+
+
+/* ---------- 16b. Mis reseñas ---------- */
+.mis-resenas {
+    padding-top: 2rem;
+}
+
+.mis-resenas-titulo {
+    margin: 2.25rem 0 3rem;
+}
+
+/* buscador ancho a la izquierda, "Filtrar" a la derecha */
+.mis-resenas .resenas-cabeza {
+    align-items: center;
+    gap: 2rem;
+    margin: 0 0.6rem 2.75rem;
+}
+
+.mis-resenas .buscador {
+    flex: 1;
+    max-width: 1000px;
+    padding: 0.7rem 1rem;
+}
+
+.mis-resenas .filtro {
+    margin-right: 1rem;
+}
+
+.resenas-contador-total {
+    margin: 0 0 1rem;
+    font-family: var(--fuente-mono);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--texto-suave);
+}
+
+.resenas-contador-total:empty {
+    display: none;
+}
+
+/* la lista scrollea por dentro, con la barra rosa del diseño */
+.mis-resenas .resenas-lista {
+    /* relative: los textos ocultos (.visualmente-oculto) de las tarjetas quedan
+       ADENTRO de la lista. Sin esto se escapaban del scroll y estiraban la página
+       (el espacio vacío abajo del footer) */
+    position: relative;
+    gap: 1.25rem;
+    max-height: min(880px, 75vh);
+    padding-right: 1rem;
+    overflow-y: auto;
+    scroll-behavior: smooth;
+    overscroll-behavior-y: contain; /* al llegar al final de la lista no arrastra toda la página */
+}
+
+/* Chrome, Edge y Safari: barra con bordes redondeados */
+.mis-resenas .resenas-lista::-webkit-scrollbar {
+    width: 10px;
+}
+
+.mis-resenas .resenas-lista::-webkit-scrollbar-track {
+    background: #d9dce3;
+    border-radius: 999px;
+}
+
+.mis-resenas .resenas-lista::-webkit-scrollbar-thumb {
+    background: var(--rosa-fuerte);
+    border: 2px solid #d9dce3; /* un "aire" entre la barra rosa y el riel */
+    border-radius: 999px;
+}
+
+.mis-resenas .resenas-lista::-webkit-scrollbar-thumb:hover {
+    background: #d5576f;
+}
+
+/* Firefox no entiende ::-webkit-scrollbar: ahí solo se pueden poner los colores.
+   (va en @supports porque en Chrome scrollbar-color anula los estilos de arriba) */
+@supports not selector(::-webkit-scrollbar) {
+    .mis-resenas .resenas-lista {
+        scrollbar-color: var(--rosa-fuerte) #d9dce3;
+    }
+}
+
+/* la tarjeta: póster a la izquierda, la reseña a la derecha */
+.resena-mia {
+    display: grid;
+    grid-template-columns: 96px 1fr; /* el póster marca la altura de la tarjeta */
+    gap: 1.4rem;
+    align-items: start;
+    padding: 1rem 1.25rem;
+    border-color: rgba(255, 255, 255, 0.35);
+    border-radius: 10px;
+    transition: border-color 0.2s;
+}
+
+.resena-mia.editando {
+    border-color: var(--rosa);
+}
+
+.resena-mia-poster {
+    display: block;
+}
+
+.resena-mia-poster .poster {
+    border-radius: 3px;
+    transition: transform 0.25s, box-shadow 0.25s;
+}
+
+.resena-mia-poster:hover .poster,
+.resena-mia-poster:focus-visible .poster {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 22px rgba(196, 70, 95, 0.35);
+}
+
+.resena-mia-cuerpo {
+    min-width: 0; /* que el texto largo no estire la grilla */
+}
+
+/* nombre de la peli + recuadro del puntaje en la misma fila */
+.resena-mia-cabeza {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+}
+
+.resena-pelicula {
+    margin: 0.3rem 0 0;
+    font-family: var(--fuente-texto);
+    font-size: clamp(1.15rem, 2vw, 1.4rem);
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--texto);
+    overflow-wrap: anywhere;
+}
+
+/* el puntaje: recuadro rosa con "4 / 5" */
+.resena-nota {
+    display: flex;
+    align-items: baseline;
+    flex-shrink: 0;
+    margin: 0;
+    padding: 0.4rem 0.85rem;
+    background: var(--rosa);
+    border-radius: 8px;
+    color: var(--fondo);
+    white-space: nowrap;
+}
+
+.resena-nota-numero {
+    font-family: var(--fuente-texto);
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.resena-nota-de {
+    font-family: var(--fuente-mono);
+    font-size: 0.85rem;
+    white-space: pre; /* respeta los espacios de " / 5" */
+}
+
+.resena-mia .resena-fecha {
+    margin: 0.35rem 0 0.6rem;
+}
+
+.resena-mia .resena-texto {
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+/* Ver película / Editar / Eliminar abajo del texto */
+.resena-mia .resena-acciones {
+    flex-wrap: wrap;
+    margin: 0.8rem 0 0;
+}
+
+.resena-mia .boton-mini {
+    padding: 0.4rem 0.9rem;
+    font-size: 0.72rem;
+    text-transform: none;
+}
+
+a.boton-mini {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.resena-edicion {
+    margin-top: 0.25rem;
+}
+
+
+/* ---------- 17. Responsive ---------- */
+@media (max-width: 1000px) {
+    .hero {
+        grid-template-columns: 1fr;
+        padding: 4rem 0 3rem;
+    }
+
+    .tickets {
+        max-width: 560px;
+    }
+
+    /* en una sola columna, el pochoclo vuelve al centro */
+    .hero-popcorn {
+        justify-self: center;
+    }
+
+    .grilla-top {
+        gap: 2rem 0.75rem;
+    }
+}
+
+@media (max-width: 800px) {
+    .acceso {
+        grid-template-columns: 1fr;
+    }
+
+    .acceso-imagen {
+        display: none;
+    }
+
+    .tablero {
+        grid-template-columns: 1fr;
+    }
+
+    .tablero-resultados {
+        contain: none;
+        max-height: 380px;
+    }
+
+    .grilla-top {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .ficha-cuerpo {
+        grid-template-columns: 1fr;
+    }
+
+    .ficha-poster {
+        width: min(280px, 100%);
+        margin-inline: auto;
+    }
+
+    .ficha-datos {
+        margin-bottom: 2rem;
+    }
+
+    .ficha-creditos {
+        grid-template-columns: 1fr;
+    }
+
+    /* en pantallas táctiles no hay hover: la × se ve siempre */
+    .puesto-quitar {
+        opacity: 1;
+    }
+}
+
+@media (max-width: 520px) {
+    .grilla-top {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .resultados-grilla {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .archivo-grilla {
+        grid-template-columns: repeat(2, 1fr);
+        padding: 1.25rem;
+    }
+
+    .ticket {
+        min-height: 110px;
+    }
+
+    /* menos inclinación para que no se salgan de la pantalla */
+    .tickets li:nth-child(1) .ticket,
+    .tickets li:nth-child(3) .ticket {
+        transform: rotate(-4deg);
+    }
+
+    /* en celular los botones del formulario ocupan todo el ancho, cada uno en su línea */
+    .resena-form-pie .boton-pill {
+        width: 100%;
+    }
+
+    /* en celular: sin el nombre al lado del logo, así entran los dos links */
+    .cabezal-marca {
+        display: none;
+    }
+
+    /* Mis reseñas: buscador y filtro uno abajo del otro, a todo el ancho */
+    .mis-resenas .resenas-cabeza {
+        align-items: stretch;
+        gap: 1rem;
+        margin-inline: 0;
+    }
+
+    .mis-resenas .buscador {
+        max-width: none;
+    }
+
+    .mis-resenas .filtro {
+        align-self: flex-end;
+        margin-right: 0;
+    }
+
+    /* la lista ya no scrollea por dentro: scrollea la página */
+    .mis-resenas .resenas-lista {
+        max-height: none;
+        padding-right: 0;
+        overflow: visible;
+    }
+
+    .resena-mia {
+        grid-template-columns: 68px 1fr;
+        gap: 0.9rem;
+        padding: 0.9rem;
+    }
+
+    .resena-pelicula {
+        margin-top: 0.15rem;
+    }
+
+    .resena-nota {
+        padding: 0.3rem 0.6rem;
+    }
+
+    .resena-nota-numero {
+        font-size: 1.25rem;
+    }
+
+    .ticket-imagen {
+        width: 70px;
+        margin: 0.9rem;
+    }
+
+    .ticket-numero {
+        padding: 0 1rem;
+        font-size: 1.8rem;
+    }
+
+    .boton-cuadrado {
+        padding: 0.8rem 2rem;
+    }
+
+    .resenas-cabeza {
+        flex-direction: column;
+    }
+
+    .modal-botones {
+        flex-direction: column-reverse;
+    }
+}
+
+
+/* ---------- 18. Movimiento reducido ---------- */
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation: none !important;
+        transition: none !important;
+    }
+}
+
+/* ---------- Cursor personalizado ----------
+   CRÉDITOS: "Cute Kitty Eats Popcorn" de sweezy-cursors.com
+   Los números (4 4) son el "punto caliente": el píxel que hace el clic,
+   contado desde la esquina de arriba a la izquierda de la imagen.
+   "auto" / "pointer" al final: el cursor de siempre, por si la imagen no carga.
+   El tamaño NO se puede cambiar con CSS: el cursor se ve al tamaño real de la imagen.
+   Por eso usamos copias achicadas a 48x48 (las originales de 128x128 siguen en img/). */
+html {
+    cursor: url("../img/cursor-chico.png") 4 4, auto;
+}
+
+a,
+button,
+select,
+label,
+.arrastrable {
+    cursor: url("../img/cursor2-chico.png") 4 4, pointer;
+}
